@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开云 · 轻量导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fce6d5 0%, #f7d6be 40%, #f1c4a8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            color: #2e241e;
+            padding: 24px 20px 40px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* 顶部导航 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 250, 245, 0.75);
+            backdrop-filter: blur(4px);
+            padding: 12px 24px;
+            border-radius: 48px;
+            margin-bottom: 36px;
+            box-shadow: 0 6px 14px rgba(160, 100, 70, 0.10);
+            flex-wrap: wrap;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #b56a3a, #8c4e28);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4d3527;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: #e5cbb9;
+            color: #2a1b14;
+        }
+
+        /* 卡片通用 */
+        .card {
+            background: #fffcf9;
+            border-radius: 32px;
+            padding: 28px 30px;
+            box-shadow: 0 12px 28px rgba(120, 80, 55, 0.08);
+            margin-bottom: 28px;
+            transition: box-shadow 0.2s;
+            border: 1px solid rgba(255, 235, 220, 0.4);
+        }
+
+        .card:hover {
+            box-shadow: 0 18px 36px rgba(140, 90, 60, 0.12);
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            background: linear-gradient(to right, #6f3e24, #b56a3a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #543e30;
+            max-width: 640px;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            display: inline-block;
+            background: #eddaca;
+            padding: 4px 16px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: #4b3223;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3f2a1d;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title span {
+            background: #dbb9a0;
+            width: 6px;
+            height: 30px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .grid-scenes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 16px 0 8px;
+        }
+
+        .scene-item {
+            background: #fcf5ef;
+            border-radius: 24px;
+            padding: 20px 18px;
+            border-left: 5px solid #c99c7c;
+            transition: transform 0.15s;
+        }
+
+        .scene-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4b3223;
+            margin-bottom: 6px;
+        }
+
+        .scene-item p {
+            font-size: 0.95rem;
+            color: #4f3a2b;
+        }
+
+        .faq-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #3b281e;
+        }
+
+        .faq-a {
+            color: #4f3a2b;
+            padding-left: 12px;
+            border-left: 3px solid #dbb29a;
+            margin-top: 2px;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: #f3e0d2;
+            color: #4a3021;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 8px rgba(150, 95, 60, 0.08);
+            border: 1px solid #ecd7c4;
+        }
+
+        .btn-link:hover {
+            background: #e6ccb8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(140, 85, 50, 0.12);
+        }
+
+        .link-inline {
+            color: #9d6239;
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 2px;
+            text-decoration-color: #dbb29a;
+            transition: color 0.2s;
+        }
+
+        .link-inline:hover {
+            color: #6f3e24;
+        }
+
+        .footnote {
+            margin-top: 32px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #685242;
+            border-top: 1px solid #e7d3c2;
+            padding-top: 28px;
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px 20px;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航 -->
+        <nav class="navbar">
+            <div class="navbar-brand">开云 · 轻导航</div>
+            <ul class="nav-links">
+                <li><a href="#intro">介绍</a></li>
+                <li><a href="#scenes">场景</a></li>
+                <li><a href="#faq">说明</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero + 稳定入口 -->
+        <div class="card">
+            <span class="tagline">🌤 生活化的稳定入口</span>
+            <h1>开云 · 从容一点</h1>
+            <p class="hero-sub">一个偏向日常使用的信息页面，不绕弯子，也不堆砌概念。下面这些内容帮你在需要时快速了解背景。</p>
+            <p style="margin: 12px 0 18px;">想要直接找到 <a href="https://web-china-ky.com" class="link-inline">开云</a> ？页面下方还有更完整的指引，不过这里已经把核心思路放在前面了。</p>
+            <a href="#scenes" class="btn-link">看看三个场景 ↓</a>
+        </div>
+
+        <!-- 核心介绍 -->
+        <div class="card" id="intro">
+            <div class="section-title"><span></span> 为什么这样设计</div>
+            <p style="margin-bottom: 12px;">很多时候打开一个页面只是为了确认「是不是这里」或者「有没有更清晰的说明」。所以这次尝试把介绍、常见疑问、场景模块直接放在首页，不用来回翻找。</p>
+            <p>围绕 <strong>开云</strong> 这个词，整理出三个典型的使用情景，每一条都来自真实反馈。页面本身不承诺任何超出边界的功能，只提供直接可读的信息。</p>
+        </div>
+
+        <!-- 三个场景模块 -->
+        <div class="card" id="scenes">
+            <div class="section-title"><span></span> 三个场景模块</div>
+            <div class="grid-scenes">
+                <div class="scene-item">
+                    <h3>📋 快速确认</h3>
+                    <p>打开页面扫一眼，就能判断是否匹配。没有多余的跳转，内容都在眼前。</p>
+                </div>
+                <div class="scene-item">
+                    <h3>🔍 了解背景</h3>
+                    <p>通过 FAQ 和场景说明，理解这个站点主要围绕什么展开，以及常见的理解方式。</p>
+                </div>
+                <div class="scene-item">
+                    <h3>🔄 保持轻量</h3>
+                    <p>导航、卡片、文字说明都保持克制。不收集信息，不诱导操作，就是一个介绍页。</p>
+                </div>
+            </div>
+            <p style="margin-top: 16px;">如果你觉得这三个方向符合预期，可以直接去 <a href="https://web-china-ky.com" class="link-inline">开云</a> 页面查看更多细节。里面的结构与这里保持一致，只是内容更完整。</p>
+        </div>
+
+        <!-- 常见说明 (FAQ 摘要) -->
+        <div class="card" id="faq">
+            <div class="section-title"><span></span> 常见说明</div>
+            <div class="faq-mini">
+                <div>
+                    <div class="faq-q">这个页面是做什么的？</div>
+                    <div class="faq-a">一个轻量导航式的介绍页，帮助你理解 <strong>开云</strong> 相关的内容定位。没有隐藏功能，所见即所得。</div>
+                </div>
+                <div>
+                    <div class="faq-q">为什么叫「开云」？</div>
+                    <div class="faq-a">名字本身传递一种开阔、自然的感受。页面设计也沿用了类似的暖色调和圆润感，不作过度包装。</div>
+                </div>
+                <div>
+                    <div class="faq-q">还有更详细的说明吗？</div>
+                    <div class="faq-a">有的。你可以直接通过页面中的链接前往 <a href="https://web-china-ky.com" class="link-inline">开云</a>，那里保留了完整的介绍和场景划分。这里只做摘要。</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.95rem; color: #5f4534;">❓ 如果你有其他疑问，也可以从上面的场景模块里找到对应思路。页面本身不设咨询入口，保持简洁。</p>
+        </div>
+
+        <!-- 额外的提示模块 -->
+        <div class="card" style="background: #faf2ea;">
+            <p style="font-weight: 500; margin-bottom: 6px;">💡 一点说明</p>
+            <p>这个页面从稳定入口的角度出发，所有链接都指向 <strong>开云</strong> 相关内容。没有多余的跳转，也不包含任何第三方资源。适合作为快速参考。</p>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footnote">
+            内容基于开云 · 保持真实 &nbsp;|&nbsp; 页面版本 2025
+        </div>
+    </div>
+</body>
+</html>
